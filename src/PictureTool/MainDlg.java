@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import Utils.Utils;
+
 public class MainDlg extends JFrame implements ActionListener {
 	/**
 	 * !!! DO NOT TOUCH, UNLESS YOU KNOW WHAT YOU ARE DOING !!!

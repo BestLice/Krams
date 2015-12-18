@@ -1,4 +1,4 @@
-package PictureTool;
+package Utils;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +18,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.ArrayUtils;
+
+import PictureTool.MyLog;
 
 //import com.sun.image.codec.jpeg.ImageFormatException;
 //import com.sun.image.codec.jpeg.JPEGCodec;

@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import Utils.Resizer;
 import Utils.Utils;
 
 public class MainDlg extends JFrame implements ActionListener {

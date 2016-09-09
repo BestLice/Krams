@@ -24,9 +24,9 @@ public class ClientMain extends JFrame implements ActionListener{
 	
 	private void init(){
 		setTitle(CONSTANTS.getTitle());
-		setSize(CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
+		setSize(CONSTANTS.MENU_WIDTH, CONSTANTS.MENU_HEIGHT);
 		setLayout(null); // I want to build my own Layout 
-		setLocation(CONSTANTS.LOCATION_WIDTH, CONSTANTS.LOCATION_HEIGHT); // Try to locate it as central as possible
+		setLocation(CONSTANTS.getMenuLocation()); // Try to locate it as central as possible
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		// TODO initialise EVERYTHING
 	}
@@ -64,7 +64,10 @@ public class ClientMain extends JFrame implements ActionListener{
 		
 		// What shall we do with a click on the button "draw"
 		if(e.getSource().equals(draw)){
-			JOptionPane.showMessageDialog(null, "Hier entsteht demnächst ein Funktion !!!\nHier lässt sich dann ein Sudoku zum Lösen eingeben."); // TODO Open new Gameframe to enter your very own puzzle - to solve it right after
+			GameFrame game = new GameFrame(this);
+			game.setVisible(true);
+			
+			setVisible(false);
 		}
 		
 		// What shall we do with a click on the button "settings"

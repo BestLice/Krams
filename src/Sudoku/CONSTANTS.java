@@ -1,5 +1,6 @@
 package Sudoku;
 
+import java.awt.Point;
 import java.awt.Toolkit;
 
 /**
@@ -7,17 +8,22 @@ import java.awt.Toolkit;
  * THIS IS NOT A FUCKING GAME...
  * 
  * @author Julian
- * @version 0.1
+ * @version 0.2
  */
 
 public class CONSTANTS {
-	// Frame Constants
-	public static String VERSION 			= "0.1";
-	public static int HEIGHT 				= 400;
-	public static int WIDTH 				= 300;
+	// Project Constants
+	public static String VERSION 			= "0.2";
+	public static int HALF_SCREEN_HEIGHT	= (Toolkit.getDefaultToolkit().getScreenSize().height / 2);
+	public static int HALF_SCREEN_WIDTH 	= (Toolkit.getDefaultToolkit().getScreenSize().width  / 2);
 	
-	public static int LOCATION_HEIGHT 		= (Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (HEIGHT / 2); 	// Trust me it's working... DO NOT TOUCH!!!
-	public static int LOCATION_WIDTH 		= (Toolkit.getDefaultToolkit().getScreenSize().width  / 2) - (WIDTH  / 2);	// Trust me it's working... DO NOT TOUCH!!!
+	// Menu Frame Constants
+	public static int MENU_HEIGHT			= 400;
+	public static int MENU_WIDTH 			= 300;
+	
+	// Game Frame Constants
+	public static int GAME_HEIGHT			= 900;
+	public static int GAME_WIDTH			= 900;
 	
 	// Element Texts
 	public static String START_BTN 			= "Starte neues Spiel";
@@ -25,7 +31,20 @@ public class CONSTANTS {
 	public static String SETTINGS_BTN 		= "Einstellungen";
 	public static String EXIT_BTN 			= "Beenden";
 	
+	// Method Constants - sounds stupid, I know... But who the fuck cares ???
 	public static String getTitle(){
 		return "Sudoku-Master - " + VERSION;
+	}
+	public static Point getMenuLocation(){
+		return new Point(
+				HALF_SCREEN_WIDTH  - (MENU_WIDTH  / 2), 
+				HALF_SCREEN_HEIGHT - (MENU_HEIGHT / 2)
+		);
+	}
+	public static Point getGameLocation(){
+		return new Point(
+				HALF_SCREEN_WIDTH  - (GAME_WIDTH  / 2), 
+				HALF_SCREEN_HEIGHT - (GAME_HEIGHT / 2)
+		);
 	}
 }

@@ -11,10 +11,10 @@ public class TestLamba {
 		// Test here :D
 		TestLamba t = new TestLamba();
 		System.out.println(t.getRetNew() ? "Jau" : "Nee");
-		
+
 		System.out.println("THAT'S ALL, FOLKS");
 	}
-	
+
 	public boolean getRetOld(){
 		List<Person> personen = new ArrayList<>();
 		personen.add(new Person("Hans", 1));
@@ -23,7 +23,7 @@ public class TestLamba {
 		List<Integer> nummern = new ArrayList<>();
 		nummern.add(1);
 		nummern.add(2);
-		
+
 		for(Person p : personen){
 			for(int i : nummern){
 				if(p.getNummer() == i){
@@ -31,7 +31,7 @@ public class TestLamba {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -43,19 +43,20 @@ public class TestLamba {
 		List<Integer> nummern = new ArrayList<>();
 		nummern.add(3);
 		nummern.add(2);
-		
-		return personen.stream().filter(p -> nummern.contains(p.getNummer())).count() > 0;//collect(Collectors.toList()).isEmpty();
+
+//		return personen.stream().filter(p -> nummern.contains(p.getNummer())).count() > 0;
+		return personen.stream().anyMatch(p -> nummern.contains(p.getNummer()));
 	}
-	
+
 	private static class Person{
 		String name = "";
 		int nummer = 0;
-		
+
 		public Person(String name, int nummer){
 			this.name = name;
 			this.nummer = nummer;
 		}
-		
+
 //		public String getName() {
 //			return name;
 //		}

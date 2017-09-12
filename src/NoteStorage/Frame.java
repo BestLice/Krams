@@ -96,6 +96,7 @@ public class Frame extends JFrame{
 
 		tmtblDate = new DefaultTableModel(data, columns) {
 			private static final long serialVersionUID = 7389180601262098694L;
+			@Override
 			public boolean isCellEditable(int row, int col) {
 				return false;
 			}
@@ -129,6 +130,7 @@ public class Frame extends JFrame{
 
 		tmtblTime = new DefaultTableModel(data, columns) {
 			private static final long serialVersionUID = 7389180601262098694L;
+			@Override
 			public boolean isCellEditable(int row, int col) {
 				return false;
 			}
@@ -169,8 +171,8 @@ public class Frame extends JFrame{
 		add(pnlButton, new CellConstraints(4, 6));
 	}
 
-	private List<NoteData> readFileList() {
-		List<NoteData> ret = new ArrayList<NoteData>();
+	private static List<NoteData> readFileList() {
+		List<NoteData> ret = new ArrayList<>();
 		File[] files = null;
 		File dir = new File(DIR_PATH);
 		if(dir.isDirectory()) {
@@ -189,30 +191,34 @@ public class Frame extends JFrame{
 	}
 
 	private void readFile(NoteData data) {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(data.getFile()));
-			String line;
-			while ((line = in.readLine()) != null) {
+	    try (
+	    		FileReader file = new FileReader(data.getFile());
+	    		BufferedReader br = new BufferedReader(file)
+	    ){
+	    	String line;
+			while ((line = br.readLine()) != null) {
 				appendText(line+"\n");
-			} in.close();
+			} 
+			br.close();
 		} catch (IOException e) {
-			appendText("Konnte nicht gelesen werden");
-		}
+			e.printStackTrace();
+		} 
 	}
 
 	private void appendText(String str) {
 		area.setText(area.getText() + str);
 	}
 
-	private void doCncl() {
+	private static void doCncl() {
 		finish();
 	}
 
-	private void finish() {
+	private static void finish() {
 		System.exit(0);
 	}
 
 	private ActionListener action = new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 //			if(e.getSource().equals(btnOK)) {
 //				doOk();
@@ -224,6 +230,7 @@ public class Frame extends JFrame{
 	};
 
 	private MouseListener mouse = new MouseListener() {
+		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(tblDate)) {
 				initTableTime(master, tmtblDate.getValueAt(tblDate.getSelectedRow(), 0).toString());
@@ -235,9 +242,13 @@ public class Frame extends JFrame{
 				}
 			}
 		}
+		@Override
 		public void mouseEntered(MouseEvent e) {}
+		@Override
 		public void mouseExited(MouseEvent e) {}
+		@Override
 		public void mousePressed(MouseEvent e) {}
+		@Override
 		public void mouseReleased(MouseEvent e) {}
 	};
 

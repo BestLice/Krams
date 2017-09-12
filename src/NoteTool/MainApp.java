@@ -33,6 +33,7 @@ public class MainApp {
 	}
 
 	private GlobalKeyListener globalkey = new GlobalKeyListener() {
+		@Override
 		public void keyPressed(GlobalKeyEvent e) {
 			if(e.isCtrlDown() && e.isMenuDown() && e.getConverted().equals("o")) {
 				frame.setVisible(true);

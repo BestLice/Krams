@@ -26,6 +26,7 @@ public class GameFrame extends JFrame {
 		
 		// When closing this Frame, I want to see the Menu again.
 		addWindowListener(new WindowAdapter() {
+			@Override
 			public void windowClosing(WindowEvent e) {
 				setVisible(true);
 				parent.setVisible(true);

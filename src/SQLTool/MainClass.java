@@ -119,6 +119,7 @@ public class MainClass extends JFrame implements ActionListener, ClipboardOwner{
 		area.setText(text);
 	}
 
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnSql)) {
 			if(area.getText().length() == 0) {
@@ -155,6 +156,7 @@ public class MainClass extends JFrame implements ActionListener, ClipboardOwner{
 		}
 	}
 
+	@Override
 	public void lostOwnership(Clipboard clipboard, Transferable contents) {}
 
 	public static void main (String args[]) {

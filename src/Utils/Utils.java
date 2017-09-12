@@ -34,7 +34,7 @@ public class Utils {
 		double ret = -1.0;
 		
 		try {
-			ret = Double.valueOf(value);
+			ret = Double.valueOf(value).doubleValue();
 		} catch(NumberFormatException e){
 			e.printStackTrace();
 		}
@@ -46,7 +46,7 @@ public class Utils {
 		int ret = -1;
 		
 		try {
-			ret = Integer.valueOf(value);
+			ret = Integer.valueOf(value).intValue();
 		} catch(NumberFormatException e){
 			e.printStackTrace();
 		}
@@ -151,62 +151,34 @@ public class Utils {
 	}
 	
 	public static void writeText2File (String pfad, String txt){
-		BufferedWriter out = null;
-		try {
-		    out = new BufferedWriter(new FileWriter(pfad, true));
+		try (BufferedWriter out = new BufferedWriter(new FileWriter(pfad, true))) {
 		    out.write(txt);
+		    out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-		    if (out != null) {
-		        try {
-					out.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-					MyLog.getInstance().appendDebug("Achtung !!! Der Bufferedwriter ist noch offen !!!");
-				}
-		    }
 		}
 	}
 	
 	public static void fileCopy( File in, File out ) {
-        FileChannel inChannel = null;
-        FileChannel outChannel = null;
-        FileInputStream instream = null;
-        FileOutputStream outstream = null;
-        try{
-        	instream = new FileInputStream(in);
-        	inChannel = instream.getChannel();
-        	outstream = new FileOutputStream(out);
-        	outChannel = outstream.getChannel();
-        	
+        try (
+        		FileInputStream instream = new FileInputStream(in);
+                FileOutputStream outstream = new FileOutputStream(out);
+        		FileChannel inChannel = instream.getChannel();
+                FileChannel outChannel = outstream.getChannel();
+        ) {
             int maxCount = (64 * 1024 * 1024) - (32 * 1024);
             long size = inChannel.size();
             long position = 0;
             while ( position < size ) {
                position += inChannel.transferTo( position, maxCount, outChannel );
             }
+            
+            instream.close();
+     	   	inChannel.close();
+     	   	outstream.close();
+			outChannel.close();
         } catch (IOException e){
         	e.printStackTrace();
-        } finally {
-            if ( inChannel != null ) {
-               try {
-            	   instream.close();
-            	   inChannel.close();
-               } catch (IOException e) {
-            	   e.printStackTrace();
-            	   MyLog.getInstance().appendDebug("Achtung !!! Der InputStream ist noch offen !!!");
-               }
-            }
-            if ( outChannel != null ) {
-            	try {
-            		outstream.close();
-					outChannel.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-					MyLog.getInstance().appendDebug("Achtung !!! Der OutputStream ist noch offen !!!");
-				}
-            }
         }
     }
 	

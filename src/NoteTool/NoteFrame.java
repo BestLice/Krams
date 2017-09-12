@@ -95,8 +95,11 @@ public class NoteFrame extends JFrame {
 	}
 
 	private KeyListener key = new KeyListener() {
+		@Override
 		public void keyTyped(KeyEvent e) {}
+		@Override
 		public void keyReleased(KeyEvent e) {}
+		@Override
 		public void keyPressed(KeyEvent e) {
 			if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_ENTER) {
 				doOk();
@@ -105,6 +108,7 @@ public class NoteFrame extends JFrame {
 	};
 
 	private ActionListener action = new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource().equals(btnOK)) {
 				doOk();
@@ -115,6 +119,7 @@ public class NoteFrame extends JFrame {
 		}
 	};
 
+	@Override
 	public void setVisible(boolean bool) {
 		super.setVisible(bool);
 		area.requestFocus();

@@ -46,13 +46,12 @@ public class Konsole extends JFrame {
 		setVisible(false);
 	}
 
-	private void finish() {
+	private static void finish() {
 		System.exit(0);
 	}
 
 	private void stashNotes() {
-		try {
-			PrintWriter out = new PrintWriter(new FileWriter(STASH_FILE));
+		try (PrintWriter out = new PrintWriter(new FileWriter(STASH_FILE))) {
 			out.println(notes.getText());
 			out.close();
 
@@ -62,8 +61,7 @@ public class Konsole extends JFrame {
 		}
 	}
 	private void readNotes() {
-		try {
-			BufferedReader in = new BufferedReader(new FileReader(STASH_FILE));
+		try (BufferedReader in = new BufferedReader(new FileReader(STASH_FILE))) {
 			String line;
 			while ((line = in.readLine()) != null) {
 				notes.appendText("\n"+line);
@@ -74,8 +72,11 @@ public class Konsole extends JFrame {
 	}
 
 	private KeyListener key = new KeyListener() {
+		@Override
 		public void keyTyped(KeyEvent e) {}
+		@Override
 		public void keyReleased(KeyEvent e) {}
+		@Override
 		public void keyPressed(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_ENTER) {
 				doEnter(txt.getText());

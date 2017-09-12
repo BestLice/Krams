@@ -24,17 +24,17 @@ public class Resizer {
         return resize( ImageIO.read(f), targetWidth, targetHeight, crossresize, higherQuality);
     }
 
-    public BufferedImage resize(BufferedImage img, int targetWidth, int targetHeight, boolean crossresize, boolean higherQuality) throws IOException {
+    public BufferedImage resize(BufferedImage img, int targetWidth, int targetHeight, boolean crossresize, boolean higherQuality) {
         return resize(img, targetWidth, targetHeight, crossresize, higherQuality, false);
     }
     
-    public BufferedImage resize(BufferedImage img, int targetWidth, int targetHeight, boolean crossresize, boolean higherQuality, boolean force) throws IOException {
+    public BufferedImage resize(BufferedImage img, int targetWidth, int targetHeight, boolean crossresize, boolean higherQuality, boolean force) {
         if(img == null) {
         	return null;
         }
 
         int type = (img.getTransparency() == Transparency.OPAQUE) ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
-        image = (BufferedImage) img;
+        image = img;
         int w, h;
 
         int realW = img.getWidth();
@@ -127,7 +127,7 @@ public class Resizer {
         }
     }
 
-    private double getImageScale(int sourceWidth, int sourceHeight, int targetWidth, int targetHeight) {
+    private static double getImageScale(int sourceWidth, int sourceHeight, int targetWidth, int targetHeight) {
         double scalex = (double) targetWidth / sourceWidth;
         double scaley = (double) targetHeight / sourceHeight;
         return Math.max(scalex, scaley);

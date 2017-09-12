@@ -55,7 +55,8 @@ public class MainDlg extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 		
 		addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent ev){
+            @Override
+			public void windowClosing(WindowEvent ev){
             	beenden();
             }
         });
@@ -70,7 +71,7 @@ public class MainDlg extends JFrame implements ActionListener {
 	}
 	
 	// Funktionen
-	private void startGenerateImageFiles(File[] images) {
+	private static void startGenerateImageFiles(File[] images) {
 		Resizer resize = new Resizer();
 		String ERROR = "";
 		StringBuilder builder = new StringBuilder();
@@ -108,7 +109,7 @@ public class MainDlg extends JFrame implements ActionListener {
 	
 	// Hilfsfunktionen
 	private File[] loadImages() {
-		List<File> images = new ArrayList<File>();
+		List<File> images = new ArrayList<>();
 		File[] data = dict.listFiles();
 		
 		if(data != null && data.length > 0) {
@@ -137,6 +138,7 @@ public class MainDlg extends JFrame implements ActionListener {
 	}
 	
 	// ActionListener
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(btnImage)) {
 			startGenerateImageFiles(loadImages());

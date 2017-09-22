@@ -29,12 +29,12 @@ public class TestLists {
 	
 	public static void testListModifiable(){
 		// Erstmal brauchen wir eine List mit der wir spielen können.
-		List<Integer> defaultList = Arrays.asList(new Integer(1), new Integer(2), new Integer(3));
+		List<Integer> defaultList = Arrays.asList(1, 2, 3);
 		
 		List<Integer> unmodifiableList = Collections.unmodifiableList(defaultList);
 		System.out.println(unmodifiableList); // Output: [1, 2, 3]
 //		unmodifiableList.add(1); // throws java.lang.UnsupportedOperationException
-		defaultList.add(new Integer(4)); // klappt, ist ja die modifizierbare Liste
+		defaultList.add(4); // klappt, ist ja die modifizierbare Liste
 		System.out.println(unmodifiableList); // Output: [1, 2, 3, 4] 
 	}
 	
@@ -71,8 +71,8 @@ public class TestLists {
 		
 //		ints.add(1); // Das wirft eine Exception.
 		List<Integer> newInt = new ArrayList<>(ints); // Neue List gleichen Typs aus der Leeren.
-		newInt.add(new Integer(1)); // jetzt gehts mit dem add()
-		ints2.add(new Integer(1));  // das geht so wie so, ist ja eine StandardList ohne jegliche Dekorierer
+		newInt.add(1); // jetzt gehts mit dem add()
+		ints2.add(1);  // das geht so wie so, ist ja eine StandardList ohne jegliche Dekorierer
 		System.out.println(newInt);
 		System.out.println(ints2);
 	}

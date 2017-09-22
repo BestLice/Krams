@@ -9,17 +9,16 @@ public class TestLamba {
 		System.out.println("KICK IT !!!");
 
 		// Test here :D
-		TestLamba t = new TestLamba();
-		System.out.println(t.getRetNew() ? "Jau" : "Nee");
+		System.out.println(TestLamba.getRetNew() ? "Jau" : "Nee");
 
 		System.out.println("THAT'S ALL, FOLKS");
 	}
 
-	public boolean getRetOld(){
+	public static boolean getRetOld(){
 		List<Person> personen = new ArrayList<>();
-		personen.add(new Person("Hans", 1));
-		personen.add(new Person("Petra", 5));
-		personen.add(new Person("Heinz", 7));
+		personen.add(new Person(1));
+		personen.add(new Person(5));
+		personen.add(new Person(7));
 		List<Integer> nummern = new ArrayList<>();
 		nummern.add(1);
 		nummern.add(2);
@@ -35,11 +34,11 @@ public class TestLamba {
 		return false;
 	}
 
-	public boolean getRetNew(){
+	public static boolean getRetNew(){
 		List<Person> personen = new ArrayList<>();
-		personen.add(new Person("Hans", 1));
-		personen.add(new Person("Petra", 5));
-		personen.add(new Person("Heinz", 7));
+		personen.add(new Person(1));
+		personen.add(new Person(5));
+		personen.add(new Person(7));
 		List<Integer> nummern = new ArrayList<>();
 		nummern.add(3);
 		nummern.add(2);
@@ -49,20 +48,12 @@ public class TestLamba {
 	}
 
 	private static class Person{
-		String name = "";
 		int nummer = 0;
 
-		public Person(String name, int nummer){
-			this.name = name;
+		public Person(int nummer){
 			this.nummer = nummer;
 		}
 
-//		public String getName() {
-//			return name;
-//		}
-//		public void setName(String name) {
-//			this.name = name;
-//		}
 		public int getNummer() {
 			return nummer;
 		}

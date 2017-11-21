@@ -1,12 +1,13 @@
 package TestStuff;
 
 import java.awt.AWTException;
-import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -14,35 +15,62 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class TestNotifier {
-
-    public static void main(String[] args) throws AWTException, IOException {
-        if (SystemTray.isSupported()) {
-            TestNotifier.displayTray();
-        } else {
-            System.err.println("System tray not supported!");
-        }
+	private SystemTray tray = null;
+	private TrayIcon trayIcon = null;
+	private PopupMenu menu = new PopupMenu("Menu");
+    private MenuItem info = new MenuItem("Info");
+    private MenuItem warning = new MenuItem("Warnung");
+    private MenuItem error = new MenuItem("Fehler");
+    private MenuItem exit = new MenuItem("Beenden");
+    
+    public TestNotifier() {
+    	tray = SystemTray.getSystemTray();
+    	build();
     }
 
-    public static void displayTray() throws AWTException, IOException {
-        //Obtain only one instance of the SystemTray object
-        SystemTray tray = SystemTray.getSystemTray();
+    private void build() {
+    	info.addActionListener(action);
+    	menu.add(info);
+    	
+    	warning.addActionListener(action);
+    	menu.add(warning);
+    	
+    	error.addActionListener(action);
+    	menu.add(error);
 
-        //If the icon is a file
-        Image image = ImageIO.read(new File("src\\TestStuff\\icon.jpg"));
-        //Alternative (if the icon is on the classpath):
-        //Image image = Toolkit.getToolkit().createImage(getClass().getResource("icon.png"));
-        TrayIcon trayIcon = new TrayIcon(image, "Tray Demo");
-        //Let the system resizes the image if needed
-        trayIcon.setImageAutoSize(true);
-        //Set tooltip text for the tray icon
-        trayIcon.setToolTip("System tray icon demo");
-        tray.add(trayIcon);
-        trayIcon.displayMessage("HEIM & HAUS Infotainment", "Hier eine Beispielnachricht.", MessageType.ERROR);
-        trayIcon.setToolTip("Tooltips sind auch möglich ? Cool !");
-        trayIcon.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Ha !! Geil !!");
-			}
-		});
+    	exit.addActionListener(action);
+        menu.add(exit);
+        
+        try {
+			trayIcon = new TrayIcon(ImageIO.read(new File("src\\TestStuff\\icon.jpg")), "Tray Demo");
+	        trayIcon.setImageAutoSize(true);
+	        trayIcon.setToolTip("Tooltips sind auch möglich ? Cool !");
+	        trayIcon.setPopupMenu(menu);
+	        tray.add(trayIcon);
+		} catch (IOException | AWTException ex) {
+			JOptionPane.showMessageDialog(null, "Programminterner Fehler beim Notifier");
+		}
     }
+    
+    private ActionListener action = new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		if(e.getSource().equals(info)) {
+    			trayIcon.displayMessage("HEIM & HAUS Infotainment", "Hier eine Beispielnachricht.", MessageType.INFO);
+    		}
+    		if(e.getSource().equals(warning)) {
+    			trayIcon.displayMessage("HEIM & HAUS Infotainment", "Hier eine Beispielwarnung.", MessageType.WARNING);
+    		}
+    		if(e.getSource().equals(error)) {
+    			trayIcon.displayMessage("HEIM & HAUS Infotainment", "Hier ein Beispielfehler.", MessageType.ERROR);
+    		}
+    		if(e.getSource().equals(exit)) {
+    			System.exit(0);
+    		}
+		}
+	};
+	
+	public static void main (String[] args){
+		TestNotifier n = new TestNotifier();
+		n.hashCode();
+	}
 }

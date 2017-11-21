@@ -48,15 +48,16 @@ public class TestLamba {
 	}
 
 	private static class Person{
+//		String name = "";
 		int nummer = 0;
 
-		public Person(String name, int nummer){
-			this.name = name;
+		public Person(int nummer){
+//			this.name = name;
 			this.nummer = nummer;
 		}
-		public String getName() {
-			return name;
-		}
+//		public String getName() {
+//			return name;
+//		}
 //		public void setName(String name) {
 //			this.name = name;
 //		}
